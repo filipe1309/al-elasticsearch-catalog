@@ -7,7 +7,12 @@
 
 ## 💬 About
 
-This project was developed following Alura's [Elasticsearch: Executando buscas inteligentes](https://cursos.alura.com.br/course/elasticsearch-introducao) course.
+This project was developed following Alura's Elasticsearch courses.
+
+Cousers:
+
+- [Elasticsearch: Executando buscas inteligentes](https://cursos.alura.com.br/course/elasticsearch-introducao)
+- [Elasticsearch: análise, consultas e dashboard](https://cursos.alura.com.br/course/elasticsearch-analise-consulta-dashboard)
 
 ## :computer: Technologies
 
