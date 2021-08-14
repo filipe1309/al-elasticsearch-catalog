@@ -10,3 +10,7 @@ https://caelum-online-public.s3.amazonaws.com/1495-elasticsearch1/01/Alura+Elast
 http://solr-vs-elasticsearch.com/
 
 https://github.com/alura-cursos/AluraElasticSearch
+
+## CLASS-1.2
+
+https://caelum-online-public.s3.amazonaws.com/1495-elasticsearch1/02/Alura+Elasticsearch+Aula+02_+%C3%8Dndices%2C+tipos%2C+shards+e+replicas.pdf
