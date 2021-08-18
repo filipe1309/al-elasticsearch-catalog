@@ -16,3 +16,5 @@ https://github.com/alura-cursos/AluraElasticSearch
 https://caelum-online-public.s3.amazonaws.com/1495-elasticsearch1/02/Alura+Elasticsearch+Aula+02_+%C3%8Dndices%2C+tipos%2C+shards+e+replicas.pdf
 ## CLASS-1.4
 
+## CLASS-1.5
+

@@ -1,4 +1,4 @@
-# Class - 1.3
+# Class - 1.4
 
 ```json
 GET catalogo/_mapping
