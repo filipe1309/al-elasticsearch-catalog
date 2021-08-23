@@ -143,7 +143,7 @@ echo "---------------------------------------------"
 confirm "Checkout to \"$GIT_DEFAULT_BRANCH\" branch & Merge current branch ($GIT_BRANCH)? [Y/n]" && { git checkout $GIT_DEFAULT_BRANCH  || { echo -e "\u274c $FAILED_MSG" ; exit 1; } } && { git pull  || { echo -e "\u274c $FAILED_MSG" ; exit 1; } } && { git merge $GIT_BRANCH  || { echo -e "\u274c $FAILED_MSG" ; exit 1; } }
 
 echo "---------------------------------------------"
-confirm "Deploy on \"$GIT_DEFAULT_BRANCH\" branch? [Y/n]" && { git push origin $TAG_NAME || { echo -e "\u274c $FAILED_MSG" ; exit 1; } }
+confirm "Deploy on \"$GIT_DEFAULT_BRANCH\" branch? [Y/n]" && { git push origin $GIT_DEFAULT_BRANCH  || { echo -e "\u274c $FAILED_MSG" ; exit 1; } } && { git push origin $GIT_DEFAULT_BRANCH --tags  || { echo -e "\u274c $FAILED_MSG" ; exit 1; } }
 
 echo "---------------------------------------------"
 
