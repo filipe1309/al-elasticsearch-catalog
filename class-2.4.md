@@ -2,11 +2,13 @@
 
 ```json
 // All docs v1
+// SELECT * from _docs
 GET pessoas/_search
 ```
 
 ```json
 // All docs v2
+// SELECT * from _docs
 GET pessoas/_search
 {
   "query": {
@@ -29,7 +31,7 @@ GET pessoas/_search
 
 ```json
 // Exact match
-// (SELECT * FROM _doc WHERE estado = 'BA')
+// SELECT * FROM _doc WHERE estado = 'BA'
 GET pessoas/_search
 {
   "query": {
@@ -54,7 +56,7 @@ GET pessoas/_search
 
 ```json
 // Select some attributes
-// (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA')
+// SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA'
 GET pessoas/_search
 {
   "_source": ["nome", "cidade", "formação"],
@@ -68,7 +70,7 @@ GET pessoas/_search
 
 ```json
 // Combinining criteria
-// (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao = 'fisica')
+// SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao = 'fisica'
 // Options: must, should, must_not, filter
 GET pessoas/_search
 {
@@ -161,7 +163,7 @@ GET pessoas/_search
 
 ```json
 // Non exact match
-// (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao LIKE '%fisica%')
+// SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao LIKE '%fisica%'
 GET pessoas/_search
 {
   "_source": ["nome", "cidade", "formação"],
@@ -171,6 +173,45 @@ GET pessoas/_search
         { "term": { "estado": "BA" } }, // Is not analyzed
         { "match": { "formação": "Física" } }
       ]
+    }
+  }
+}
+```
+
+```json
+// Sort results
+// SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao LIKE '%fisica%' ORDER BY cidade ASC, nome DESC
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } }, // Is not analyzed
+        { "match": { "formação": "Física" } }
+      ]
+    }
+  },
+  "sort": [
+    { "cidade.original": { "order": "asc" } },
+    { "nome.original": "desc" }
+  ]
+}
+```
+
+```json
+// Aggregations (group by, count, sum, avg, min, max)
+// SELECT estado, count(*) FROM _doc WHERE formacao LIKE '%fisica%' GROUP BY estado
+GET pessoas/_search
+{
+  "query": {
+    "match": { "formação": "Física" }
+  },
+  "aggs": {
+    "pessoas formada em fisica por estado": {
+      "terms": {
+        "field": "estado"
+      }
     }
   }
 }
