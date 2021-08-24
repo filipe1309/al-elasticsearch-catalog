@@ -63,3 +63,49 @@ GET pessoas/_search
   }
 }
 ```
+
+```json
+// Combinining criteria (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao = 'fisica')
+// Options: must, should, must_not, filter
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } }, // Is not analyzed
+        { "term": { "formação": "fisic" } } // Is analyzed
+      ]
+    }
+  }
+}
+
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } }, // Is not analyzed
+        { "term": { "formação.original": "Física" } } // Is analyzed
+      ]
+    }
+  }
+}
+
+// "formação": "Física" has a higher score
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } } // Is not analyzed
+      ],
+      "should": [
+        { "term": { "formação.original": "Física" } }
+      ]
+    }
+  }
+}
+```
