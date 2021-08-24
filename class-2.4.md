@@ -28,7 +28,8 @@ GET pessoas/_search
 ```
 
 ```json
-// Exact match (SELECT * FROM _doc WHERE estado = 'BA')
+// Exact match
+// (SELECT * FROM _doc WHERE estado = 'BA')
 GET pessoas/_search
 {
   "query": {
@@ -52,7 +53,8 @@ GET pessoas/_search
 ```
 
 ```json
-// Select some attributes (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA')
+// Select some attributes
+// (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA')
 GET pessoas/_search
 {
   "_source": ["nome", "cidade", "formação"],
@@ -65,7 +67,8 @@ GET pessoas/_search
 ```
 
 ```json
-// Combinining criteria (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao = 'fisica')
+// Combinining criteria
+// (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao = 'fisica')
 // Options: must, should, must_not, filter
 GET pessoas/_search
 {
@@ -80,6 +83,7 @@ GET pessoas/_search
   }
 }
 
+// Must
 GET pessoas/_search
 {
   "_source": ["nome", "cidade", "formação"],
@@ -93,6 +97,7 @@ GET pessoas/_search
   }
 }
 
+// Shuold
 // "formação": "Física" has a higher score
 GET pessoas/_search
 {
@@ -104,6 +109,67 @@ GET pessoas/_search
       ],
       "should": [
         { "term": { "formação.original": "Física" } }
+      ]
+    }
+  }
+}
+```
+
+```json
+// Must not
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } } // Is not analyzed
+      ],
+      "must_not": [
+        { "term": { "formação.original": "Física" } }
+      ]
+    }
+  }
+}
+```
+
+```json
+// Filter
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } } // Is not analyzed
+      ],
+      "must_not": [
+        { "term": { "formação.original": "Física" } }
+      ],
+      "filter": {
+        "range": {
+          "nome.original": {
+            "gte": "A",
+            "lte": "Czzzzzz"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```json
+// Non exact match
+// (SELECT nome, cidade, formacao FROM _doc WHERE estado = 'BA' AND formacao LIKE '%fisica%')
+GET pessoas/_search
+{
+  "_source": ["nome", "cidade", "formação"],
+  "query": {
+    "bool": {
+      "must": [
+        { "term": { "estado": "BA" } }, // Is not analyzed
+        { "match": { "formação": "Física" } }
       ]
     }
   }
