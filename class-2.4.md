@@ -216,3 +216,7 @@ GET pessoas/_search
   }
 }
 ```
+
+https://www.elastic.co/guide/en/kibana/current/settings.html
+
+https://caelum-online-public.s3.amazonaws.com/1601-elasticsearch2/04/Alura+Elasticsearch+Aula+09_+Linguagem+de+Consultas.pdf
