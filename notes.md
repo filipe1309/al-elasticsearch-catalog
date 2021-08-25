@@ -24,3 +24,5 @@ https://caelum-online-public.s3.amazonaws.com/1495-elasticsearch1/02/Alura+Elast
 
 ## CLASS-2.3
 
+## CLASS-2.5
+
